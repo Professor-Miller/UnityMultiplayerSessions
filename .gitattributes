@@ -1,0 +1,85 @@
+# ============================================================
+# Cross-platform line ending normalization
+# ============================================================
+
+# Auto-detect text files and normalize them
+* text=auto
+
+# ============================================================
+# Source code
+# ============================================================
+
+*.cs      text eol=lf
+*.gd      text eol=lf
+*.cpp     text eol=lf
+*.c       text eol=lf
+*.h       text eol=lf
+*.hpp     text eol=lf
+*.shader  text eol=lf
+*.compute text eol=lf
+
+# ============================================================
+# Config / data / docs
+# ============================================================
+
+*.json    text eol=lf
+*.xml     text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.toml    text eol=lf
+*.ini     text eol=lf
+*.cfg     text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf
+
+# ============================================================
+# Unity text-serialized assets
+# ============================================================
+
+*.unity   text eol=lf
+*.prefab  text eol=lf
+*.asset   text eol=lf
+*.meta    text eol=lf
+*.mat     text eol=lf
+*.anim    text eol=lf
+*.controller text eol=lf
+
+# ============================================================
+# Godot text assets
+# ============================================================
+
+*.tscn    text eol=lf
+*.tres    text eol=lf
+*.godot   text eol=lf
+
+# ============================================================
+# Scripts
+# ============================================================
+
+*.sh      text eol=lf
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+
+# ============================================================
+# Binary assets
+# ============================================================
+
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.webp    binary
+*.ico     binary
+
+*.wav     binary
+*.mp3     binary
+*.ogg     binary
+
+*.fbx     binary
+*.blend   binary
+*.psd     binary
+
+*.zip     binary
+*.7z      binary
+*.dll     binary
+*.exe     binary

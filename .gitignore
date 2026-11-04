@@ -1,0 +1,334 @@
+# ============================================================
+# Universal Game Development .gitignore
+# Cross-platform: macOS <-> Windows
+# Unity / Godot / Unreal
+# ============================================================
+
+
+# ============================================================
+# OPERATING SYSTEM FILES
+# ============================================================
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+*.icloud
+
+# --- Windows ---
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+*.lnk
+*.stackdump
+*.dmp
+
+
+# ============================================================
+# TEMPORARY / BACKUP FILES
+# ============================================================
+
+*~
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.swp
+*.swo
+*.log
+
+
+# ============================================================
+# IDE / EDITOR FILES
+# ============================================================
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userprefs
+*.opendb
+*.VC.db
+*.VC.opendb
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.iml
+*.DotSettings.user
+
+# Zed
+.zed/
+
+# Consulo
+.consulo/
+
+
+# ============================================================
+# GENERATED C# / IDE PROJECT FILES
+# ============================================================
+
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.pidb
+*.booproj
+*.svd
+
+
+# ============================================================
+# GENERIC COMPILED FILES
+# ============================================================
+
+*.o
+*.obj
+*.lo
+*.slo
+
+*.gch
+*.pch
+
+*.pdb
+*.mdb
+
+*.dll
+*.so
+*.dylib
+
+*.lib
+*.a
+*.la
+*.lai
+
+*.exe
+*.out
+
+*.app
+*.ipa
+
+
+# ============================================================
+# UNITY
+# ============================================================
+
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Temporary Unity files
+.utmp/
+
+# Memory captures / recordings
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Asset Store tools
+[Aa]ssets/AssetStoreTools*
+
+# JetBrains Rider Unity plugin
+[Aa]ssets/Plugins/Editor/JetBrains*
+
+# Generated debug metadata
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity crash reports
+sysinfo.txt
+mono_crash.*
+
+# Unity build artifacts
+*.apk
+*.aab
+*.unitypackage
+*.unitypackage.meta
+
+# Gradle
+.gradle/
+
+# Crashlytics
+crashlytics-build.properties
+
+
+# ------------------------------------------------------------
+# Unity Addressables
+# ------------------------------------------------------------
+
+ServerData/
+[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+[Aa]ssets/AddressableAssetsData/link.xml*
+[Aa]ssets/Addressables_Temp*
+
+
+# ------------------------------------------------------------
+# Unity Generated StreamingAssets
+# ------------------------------------------------------------
+
+[Aa]ssets/[Ss]treamingAssets/aa.meta
+[Aa]ssets/[Ss]treamingAssets/aa/*
+
+
+# ------------------------------------------------------------
+# Unity Visual Scripting
+# ------------------------------------------------------------
+
+[Aa]ssets/Unity.VisualScripting.Generated/
+
+
+# ------------------------------------------------------------
+# Unity Test Framework
+# ------------------------------------------------------------
+
+[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+
+# ============================================================
+# IMPORTANT UNITY NOTE
+# ============================================================
+
+# DO NOT ignore normal Unity .meta files.
+#
+# Never add:
+#
+# *.meta
+#
+# Unity .meta files contain asset GUIDs and should be committed.
+
+
+# ============================================================
+# GODOT
+# ============================================================
+
+# Godot 4 generated data
+.godot/
+
+# Godot 3 generated/import data
+.import/
+
+# Mono / C# generated data
+.mono/
+data_*/
+
+# Crash files
+mono_crash.*.json
+
+# Generated translations
+*.translation
+
+# Usually keep export_presets.cfg under source control.
+#
+# Uncomment only if you intentionally want it local:
+#
+# export_presets.cfg
+
+
+# ============================================================
+# UNREAL ENGINE
+# ============================================================
+
+# Generated directories
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Plugin-generated files
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# Generated IDE/project files
+*.xcodeproj
+*.xcworkspace
+*.opensdf
+*.sdf
+
+# Generated map data
+*_BuiltData.uasset
+
+# Write permission check files
+WritePermissions.*.temp
+
+
+# ============================================================
+# BLENDER
+# ============================================================
+
+*.blend1
+*.blend2
+*.blend3
+*.blend@
+
+
+# ============================================================
+# PACKAGE / BUILD SYSTEMS
+# ============================================================
+
+# Node
+node_modules/
+.npm/
+.yarn/cache/
+.pnpm-store/
+
+# Gradle
+.gradle/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+
+# ============================================================
+# LOCAL ENVIRONMENT / SECRETS
+# ============================================================
+
+.env
+.env.local
+.env.*.local
+
+*.local
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+
+# ============================================================
+# OPTIONAL PROJECT BUILD OUTPUT
+# ============================================================
+
+# Uncomment as needed:
+#
+# Dist/
+# dist/
+# Release/
+# release/
+# Debug/
+# debug/
+# Export/
+# Exports/
+
+
+# ============================================================
+# PROJECT-SPECIFIC RULES
+# ============================================================
+
+# Add project-specific rules below.
