@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform roomListContainer;
     [SerializeField] private Transform playerListContainer;
 
+    [Header("Loading")]
+    [SerializeField] private GameObject loadingPanel;
+
     private LobbyManager _lobby;
     private SessionManager _sessions;
     private bool _roomOpen;
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         usernameInput.onValueChanged.AddListener(_ => ValidateInputs());
         roomNameInput.onValueChanged.AddListener(_ => ValidateInputs());
 
+        HideLoading();
         Show(titlePanel);
         ValidateInputs();
     }
@@ -103,13 +107,17 @@ public class GameManager : MonoBehaviour
     {
         _sessions.SetUsername(usernameInput.text);
         Show(browsePanel);
+        ShowLoading();
 
-        await RefreshRooms();
-    }
+        try
+        {
+            await RefreshRooms();
+        }
 
-    public async void RefreshRoomsButton()
-    {
-        await RefreshRooms();
+        finally
+        {
+            HideLoading();
+        }
     }
 
     private async System.Threading.Tasks.Task RefreshRooms()
@@ -136,12 +144,32 @@ public class GameManager : MonoBehaviour
 
     public async void CreateRoom()
     {
-        await _sessions.CreateRoom(roomNameInput.text);
+        ShowLoading();
+
+        try
+        {
+            await _sessions.CreateRoom(roomNameInput.text);
+        }
+
+        finally
+        {
+            HideLoading();
+        }
     }
 
     public async void JoinRoom(string sessionId)
     {
-        await _sessions.JoinRoom(sessionId);
+        ShowLoading();
+
+        try
+        {
+            await _sessions.JoinRoom(sessionId);
+        }
+
+        finally
+        {
+            HideLoading();
+        }
     }
 
     private void EnterRoom()
@@ -156,7 +184,7 @@ public class GameManager : MonoBehaviour
 
     public void ReadyOrStart()
     {
-        if (_lobby = null) return;
+        if (_lobby == null) return;
 
         if (NetworkManager.Singleton.IsHost)
             _lobby.StartMatch();
@@ -251,7 +279,18 @@ public class GameManager : MonoBehaviour
 
     public async void LeaveRoom()
     {
-        await _sessions.LeaveRoom();
+        ShowLoading();
+
+        try
+        {
+            await _sessions.LeaveRoom();
+        }
+
+        finally
+        {
+            await RefreshRooms();
+            HideLoading();
+        }
     }
 
     private async void SessionLeft()
@@ -265,6 +304,7 @@ public class GameManager : MonoBehaviour
         }
 
         Show(browsePanel);
+
         await RefreshRooms();
     }
 
@@ -289,6 +329,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    private void ShowLoading()
+    {
+        loadingPanel.SetActive(true);
+    }
+
+    private void HideLoading()
+    {
+        loadingPanel.SetActive(false);
     }
 
     void OnDestroy()

@@ -85,7 +85,7 @@ public class LobbyManager : NetworkBehaviour
         Players.Add(new LobbyPlayer
         {
             ClientId = id,
-            Username = $"Player {id}",
+            Username = new FixedString64Bytes($"Player {id}"),
             Ready = false
         });
     }
@@ -106,9 +106,10 @@ public class LobbyManager : NetworkBehaviour
     {
         ulong id = rpcParams.Receive.SenderClientId;
 
-        username = username.Trim();
+        if (string.IsNullOrWhiteSpace(username))
+            return;
 
-        if (string.IsNullOrWhiteSpace(username)) return;
+        username = username.Trim();
 
         for (int i = 0; i < Players.Count; i++)
         {
@@ -116,11 +117,17 @@ public class LobbyManager : NetworkBehaviour
                 continue;
 
             var player = Players[i];
-            player.Username = username;
+            player.Username = new FixedString64Bytes(username);
             Players[i] = player;
-
             return;
         }
+
+        Players.Add(new LobbyPlayer
+        {
+            ClientId = id,
+            Username = new FixedString64Bytes(username),
+            Ready = false
+        });
     }
 
     public void ToggleReady()
@@ -208,22 +215,18 @@ public class LobbyManager : NetworkBehaviour
 
     public void ReturnToLobby()
     {
-        if (!IsServer || State.Value != MatchState.Results) return;
+        if (!IsServer || State.Value != MatchState.Results)
+            return;
 
-        foreach (var player in Players)
+        for (int i = 0; i < Players.Count; i++)
         {
-            int index = FindPlayer(player.ClientId);
-
-            if (index < 0)
-                continue;
-
-            var updated = Players[index];
-            updated.Ready = false;
-            Players[index] = updated;
-
-            Winner.Value = default;
-            State.Value = MatchState.Lobby;
+            var player = Players[i];
+            player.Ready = false;
+            Players[i] = player;
         }
+
+        Winner.Value = default;
+        State.Value = MatchState.Lobby;
     }
 
     private int FindPlayer(ulong id)
