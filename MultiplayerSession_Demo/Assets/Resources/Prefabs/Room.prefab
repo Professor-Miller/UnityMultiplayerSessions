@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7400536578271934903}
   - component: {fileID: 2276230341864386538}
   m_Layer: 5
-  m_Name: txt_capacity
+  m_Name: txt_playerCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,6 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4965097855599462724}
+  - component: {fileID: 8490509812005257039}
   - component: {fileID: 3223161424018649048}
   - component: {fileID: 923762910086885583}
   m_Layer: 5
@@ -451,6 +452,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1325, y: 128.5175}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8490509812005257039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210329779888295708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96de31ef4e3c345cb849d469b585fe80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomEntryUI
+  roomNameText: {fileID: 4263749472249120489}
+  playerCountText: {fileID: 2276230341864386538}
+  joinButton: {fileID: 5099999047013652735}
 --- !u!222 &3223161424018649048
 CanvasRenderer:
   m_ObjectHideFlags: 0

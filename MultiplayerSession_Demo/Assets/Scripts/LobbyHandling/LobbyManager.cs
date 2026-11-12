@@ -85,7 +85,7 @@ public class LobbyManager : NetworkBehaviour
         Players.Add(new LobbyPlayer
         {
             ClientId = id,
-            Username = new FixedString64Bytes($"Player {id}"),
+            Username = $"Player {id}",
             Ready = false
         });
     }
