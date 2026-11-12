@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -47,8 +46,6 @@ public class SessionManager : MonoBehaviour
 
     private async Task InitializeServicesAsync()
     {
-        var timer = Stopwatch.StartNew();
-
         try
         {
             if (UnityServices.State !=
@@ -57,26 +54,16 @@ public class SessionManager : MonoBehaviour
                 await UnityServices.InitializeAsync();
             }
 
-            UnityEngine.Debug.Log(
-                $"[NETWORK] Services: {timer.ElapsedMilliseconds}ms");
-
-            timer.Restart();
-
             if (!AuthenticationService.Instance.IsSignedIn)
             {
                 await AuthenticationService.Instance
                     .SignInAnonymouslyAsync();
             }
-
-            UnityEngine.Debug.Log(
-                $"[NETWORK] Authentication: {timer.ElapsedMilliseconds}ms");
-
-            UnityEngine.Debug.Log("[NETWORK] Ready!");
         }
+
         catch (Exception e)
         {
-            UnityEngine.Debug.LogError(
-                $"[NETWORK] Initialization failed: {e}");
+            Debug.LogError($"[NETWORK] Initialization failed: {e}");
 
             // Allow initialization to be retried.
             _initializationTask = null;
@@ -91,8 +78,7 @@ public class SessionManager : MonoBehaviour
 
     public async Task CreateRoom(string roomName)
     {
-        if (_busy || CurrentSession != null)
-            return;
+        if (_busy || CurrentSession != null) return;
 
         _busy = true;
 
@@ -108,28 +94,19 @@ public class SessionManager : MonoBehaviour
             }
             .WithRelayNetwork();
 
-            var timer = Stopwatch.StartNew();
-
             CurrentSession = await MultiplayerService.Instance
                 .CreateSessionAsync(options);
 
-            UnityEngine.Debug.Log(
-                $"[NETWORK] Create Room: {timer.ElapsedMilliseconds}ms");
-
             SubscribeToSession();
-
-            UnityEngine.Debug.Log(
-                $"Created: {CurrentSession.Name}");
-
-            UnityEngine.Debug.Log(
-                $"Join Code: {CurrentSession.Code}");
 
             OnSessionJoined?.Invoke();
         }
+
         catch (Exception e)
         {
-            UnityEngine.Debug.LogError($"Create failed: {e}");
+            Debug.LogError($"Create failed: {e}");
         }
+
         finally
         {
             _busy = false;
@@ -139,8 +116,7 @@ public class SessionManager : MonoBehaviour
     public Task<List<ISessionInfo>> BrowseRooms()
     {
         // Reuse an active query instead of sending duplicates.
-        if (_browseTask != null && !_browseTask.IsCompleted)
-            return _browseTask;
+        if (_browseTask != null && !_browseTask.IsCompleted) return _browseTask;
 
         _browseTask = BrowseRoomsInternal();
         return _browseTask;
@@ -150,32 +126,24 @@ public class SessionManager : MonoBehaviour
     {
         await InitializeAsync();
 
-        var timer = Stopwatch.StartNew();
-
         try
         {
             var results = await MultiplayerService.Instance
                 .QuerySessionsAsync(new QuerySessionsOptions());
 
-            UnityEngine.Debug.Log(
-                $"[NETWORK] Browse Rooms: {timer.ElapsedMilliseconds}ms");
-
             return new List<ISessionInfo>(results.Sessions);
         }
+
         catch (Exception e)
         {
-            UnityEngine.Debug.LogError(
-                $"[NETWORK] Browse failed after " +
-                $"{timer.ElapsedMilliseconds}ms: {e}");
-
+            Debug.LogError($"[NETWORK] Browse failed: {e}");
             throw;
         }
     }
 
     public async Task JoinRoom(string sessionId)
     {
-        if (_busy || CurrentSession != null)
-            return;
+        if (_busy || CurrentSession != null) return;
 
         _busy = true;
 
@@ -183,21 +151,18 @@ public class SessionManager : MonoBehaviour
         {
             await InitializeAsync();
 
-            var timer = Stopwatch.StartNew();
-
             CurrentSession = await MultiplayerService.Instance
                 .JoinSessionByIdAsync(sessionId);
-
-            UnityEngine.Debug.Log(
-                $"[NETWORK] Join Room: {timer.ElapsedMilliseconds}ms");
 
             SubscribeToSession();
             OnSessionJoined?.Invoke();
         }
+
         catch (Exception e)
         {
-            UnityEngine.Debug.LogError($"Join failed: {e}");
+            Debug.LogError($"Join failed: {e}");
         }
+
         finally
         {
             _busy = false;
@@ -206,12 +171,9 @@ public class SessionManager : MonoBehaviour
 
     public async Task LeaveRoom()
     {
-        if (_busy || CurrentSession == null)
-            return;
+        if (_busy || CurrentSession == null) return;
 
         _busy = true;
-
-        var timer = Stopwatch.StartNew();
 
         try
         {
@@ -224,12 +186,12 @@ public class SessionManager : MonoBehaviour
                 await CurrentSession.LeaveAsync();
             }
         }
+
         catch (Exception e)
         {
-            UnityEngine.Debug.LogError(
-                $"[NETWORK] Leave failed after " +
-                $"{timer.ElapsedMilliseconds}ms: {e}");
+            Debug.LogError($"[NETWORK] Leave failed: {e}");
         }
+
         finally
         {
             ClearSession();
@@ -250,8 +212,7 @@ public class SessionManager : MonoBehaviour
 
     private void ClearSession()
     {
-        if (CurrentSession == null)
-            return;
+        if (CurrentSession == null) return;
 
         CurrentSession.Deleted -= HandleSessionDeleted;
         CurrentSession.RemovedFromSession -= HandleSessionDeleted;

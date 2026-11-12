@@ -13,7 +13,7 @@ public class RollingDotsAnimation : MonoBehaviour
     {
         timer = 0f;
         dots = 0;
-        text.text = "Rolling";
+        text.text = "Picking Random Winner (Totally Legit)";
     }
 
     private void Update()
@@ -26,6 +26,6 @@ public class RollingDotsAnimation : MonoBehaviour
         timer = 0f;
         dots = (dots + 1) % 4;
 
-        text.text = "Rolling" + new string('.', dots);
+        text.text = "Picking Random Winner (Totally Legit)" + new string('.', dots);
     }
 }

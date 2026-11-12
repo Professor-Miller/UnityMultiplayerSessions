@@ -14,6 +14,6 @@ public class PlayerEntryUI : MonoBehaviour
     {
         usernameText.text = isHost ? $"(Host) {username}" : username;
 
-        statusCircle.color = ready ? readyColor : waitingColor;
+        statusCircle.color = (isHost || ready) ? readyColor : waitingColor;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Loading")]
     [SerializeField] private GameObject loadingPanel;
+
+    public static event Action OnRefreshBrowse;
 
     private LobbyManager _lobby;
     private SessionManager _sessions;
@@ -118,6 +121,12 @@ public class GameManager : MonoBehaviour
         {
             HideLoading();
         }
+    }
+
+    public async void RefreshRoomsButton()
+    {
+        await RefreshRooms();
+        OnRefreshBrowse?.Invoke();
     }
 
     private async System.Threading.Tasks.Task RefreshRooms()
@@ -296,6 +305,8 @@ public class GameManager : MonoBehaviour
     private async void SessionLeft()
     {
         _roomOpen = false;
+
+        ClearChildren(playerListContainer);
 
         if (_lobby != null)
         {
