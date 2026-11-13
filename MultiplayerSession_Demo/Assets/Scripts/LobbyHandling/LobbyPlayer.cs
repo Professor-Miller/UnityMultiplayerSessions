@@ -2,7 +2,7 @@ using System;
 using Unity.Collections;
 using Unity.Netcode;
 
-public struct LobbyPlayer : INetworkSerializable
+public struct LobbyPlayer : INetworkSerializable, IEquatable<LobbyPlayer>
 {
     public ulong ClientId;
     public FixedString64Bytes Username;
@@ -47,5 +47,12 @@ public struct LobbyPlayer : INetworkSerializable
         //
         // Both sides must interpret the transmitted data
         // using the same field order and data types.
+    }
+
+    public bool Equals(LobbyPlayer other)
+    {
+        return ClientId == other.ClientId &&
+            Username.Equals(other.Username) &&
+            Ready == other.Ready;
     }
 }
