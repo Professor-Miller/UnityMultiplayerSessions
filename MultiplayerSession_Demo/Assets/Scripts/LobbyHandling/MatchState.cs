@@ -1,6 +1,6 @@
 public enum MatchState
 {
-    Lobby,
-    Rolling,
-    Results
+    Lobby, // Default state (everything other than rolling or results)
+    Rolling, // When the winner is being decided
+    Results // When the results are displayed
 }
